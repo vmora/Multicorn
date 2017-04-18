@@ -12,8 +12,8 @@
  *
  *-------------------------------------------------------------------------
  */
-#include <Python.h>
 #include "postgres.h"
+#include <Python.h>
 #include "multicorn.h"
 #include "miscadmin.h"
 

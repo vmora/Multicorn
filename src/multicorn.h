@@ -1,5 +1,5 @@
-#include "Python.h"
 #include "postgres.h"
+#include "Python.h"
 #include "access/relscan.h"
 #include "catalog/pg_foreign_server.h"
 #include "catalog/pg_foreign_table.h"

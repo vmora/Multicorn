@@ -1,6 +1,6 @@
+#include "postgres.h"
 #include <Python.h>
 #include "datetime.h"
-#include "postgres.h"
 #include "multicorn.h"
 #include "catalog/pg_user_mapping.h"
 #include "access/reloptions.h"

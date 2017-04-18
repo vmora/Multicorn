@@ -1,15 +1,19 @@
 cmake_minimum_required(VERSION 3.4)
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 project(multicorn)
 
 #set(CMAKE_FIND_LIBRARY_PREFIXES "")
 #set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-
-find_package(PostgreSQL REQUIRED)
+exec_program(pg_config ARGS --libdir
+    OUTPUT_VARIABLE POSTGRES_LIBRARY_DIR)
+find_library(POSTGRESQL_LIBRARIES NAMES postgres
+	PATHS ${POSTGRES_LIBRARY_DIR}
+	)
 exec_program(pg_config ARGS --includedir-server
     OUTPUT_VARIABLE POSTGRESQL_SERVER_INCLUDE_DIR)
+exec_program(pg_config ARGS --includedir
+    OUTPUT_VARIABLE POSTGRESQL_INCLUDE_DIR)
 if (MSVC)
 	include_directories(
 		${POSTGRESQL_SERVER_INCLUDE_DIR}/port/win32
@@ -18,6 +22,7 @@ if (MSVC)
 endif()
 message("pg confiog ${PG_CONFIG}")
 message("pg_include ${POSTGRESQL_SERVER_INCLUDE_DIR}")
+message("postgres lib ${POSTGRESQL_LIBRARIES}")
 find_package(PythonInterp REQUIRED)
 find_package(PythonLibs REQUIRED)
 
