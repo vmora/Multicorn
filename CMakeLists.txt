@@ -4,10 +4,11 @@ project(multicorn)
 #set(CMAKE_FIND_LIBRARY_PREFIXES "")
 #set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+
+
 exec_program(pg_config ARGS --libdir
     OUTPUT_VARIABLE POSTGRES_LIBRARY_DIR)
-find_library(POSTGRESQL_LIBRARIES NAMES postgres
+find_library(POSTGRESQL_LIBRARIES NAMES postgres pq
 	PATHS ${POSTGRES_LIBRARY_DIR}
 	)
 exec_program(pg_config ARGS --includedir-server
