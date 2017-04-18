@@ -8,7 +8,18 @@ project(multicorn)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 find_package(PostgreSQL REQUIRED)
-find_package(PythonLibs 3 REQUIRED)
+exec_program(pg_config ARGS --includedir-server
+    OUTPUT_VARIABLE POSTGRESQL_SERVER_INCLUDE_DIR)
+if (MSVC)
+	include_directories(
+		${POSTGRESQL_SERVER_INCLUDE_DIR}/port/win32
+		${POSTGRESQL_SERVER_INCLUDE_DIR}/port/win32_msvc
+		)
+endif()
+message("pg confiog ${PG_CONFIG}")
+message("pg_include ${POSTGRESQL_SERVER_INCLUDE_DIR}")
+find_package(PythonInterp REQUIRED)
+find_package(PythonLibs REQUIRED)
 
 
 include_directories(
