@@ -32,6 +32,11 @@ include_directories(
     ${POSTGRESQL_INCLUDE_DIR} 
     ${POSTGRESQL_SERVER_INCLUDE_DIR} 
     ${PYTHON_INCLUDE_DIRS})
+if (MSVC)
+  # make sure a pdb file is generated whatever the build type is
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zi")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /DEBUG /OPT:REF /OPT:ICF")
+endif()
 
 add_library(multicorn SHARED src/errors.c src/python.c src/query.c src/multicorn.c src/utils.c)
 target_link_libraries(multicorn ${POSTGRESQL_LIBRARIES} ${PYTHON_LIBRARIES})
